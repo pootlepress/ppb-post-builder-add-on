@@ -74,9 +74,12 @@ class PPB_Post_Builder_Addon_Admin{
 	public function add_post_types( $post_types ) {
 		$ppb_settings = get_option( 'pootlepb_display' );
 
-		if ( $ppb_settings && ! empty( $ppb_settings['post-types'] ) ) {
+		if ( 0 && $ppb_settings && ! empty( $ppb_settings['post-types'] ) ) {
 			return $ppb_settings['post-types'];
+		} else {
+			$post_types[] = 'post';
 		}
+
 		return $post_types;
 	}
 }
