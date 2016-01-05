@@ -8,9 +8,6 @@ Version: 1.0.0
 Author URI: http://shramee.com/
 @developer shramee <shramee.srivastav@gmail.com>
 */
-
-/** Plugin admin class */
-require 'inc/class-admin.php';
 /** Including Main Plugin class */
 require 'class-ppb-post-builder.php';
 /** Intantiating main plugin class */

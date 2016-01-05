@@ -52,13 +52,6 @@ class PPB_Post_Builder_Addon{
 	public static $path;
 
 	/**
-	 * @var 	PPB_Post_Builder_Addon_Admin Instance
-	 * @access  public
-	 * @since 	1.0.0
-	 */
-	public $admin;
-
-	/**
 	 * Main Pootle Post Builder Addon Instance
 	 *
 	 * Ensures only one instance of Storefront_Extension_Boilerplate is loaded or can be loaded.
@@ -112,13 +105,20 @@ class PPB_Post_Builder_Addon{
 	 * @since 1.0.0
 	 */
 	private function _admin() {
-		//Instantiating admin class
-		$this->admin = PPB_Post_Builder_Addon_Admin::instance();
-
-		//Content block panel fields
-		add_action( 'admin_init',	array( $this->admin, 'init_settings' ) );
 		//Add supported post types
-		add_filter( 'pootlepb_builder_post_types', array( $this->admin, 'add_post_types' ), 16 );
+		add_filter( 'pootlepb_builder_post_types', array( $this, 'add_post_types' ), 16 );
+	}
+
+	/**
+	 * Adds chosen post types to pb supported post types
+	 * @param array $post_types
+	 * @action pootlepb_builder_post_types
+	 * @return array
+	 */
+	public function add_post_types( $post_types ) {
+		$post_types[] = 'post';
+
+		return $post_types;
 	}
 
 	/**
@@ -128,7 +128,6 @@ class PPB_Post_Builder_Addon{
 	 * @since 1.0.0
 	 */
 	public function add_on_active( $active ) {
-
 		// To allows ppb add ons page to fetch name, description etc.
 		$active[ self::$token ] = self::$file;
 		return $active;
